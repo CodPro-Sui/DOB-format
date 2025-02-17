@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Date of Birth</title>
+  <!-- style -->
+  <style>
+    /* prevent default*/
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #0F0F14;
+    }
+
+    input {
+      border: 1px solid #02D088;
+      outline: none;
+      border-radius: 8px;
+      width: 150px;
+      padding: 8px;
+      background: transparent;
+      color: white;
+      transition: all .24s ease;
+      font-size: 1.13em;
+      letter-spacing: .54px;
+    }
+
+    input:focus {
+      box-shadow: 0 0 0 3px #02D0887A;
+      transition: all .24s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" name="UserDOB" id="DOB" placeholder="DD-MM-YYYY" maxlength="10" />
+
+  <script type="text/javascript" charset="utf-8">
+    let userInput = document.getElementById("DOB");
+    let reg = /\D/g;
+    userInput.addEventListener("input", () => {
+      userInput.value = userInput.value.replace(reg, "");
+      let value = userInput.value;
+      if (value.slice(0, 2) > 31 || value.slice(2, 4) > 12) {
+        userInput.style.borderColor = "red";
+        userInput.style.boxShadow = "0 0 0 3px #D002027A";
+        navigator.vibrate([600,20]);
+      } else {
+        userInput.style.borderColor = "#02D088";
+        userInput.style.boxShadow = "0 0 0 3px #02D0887A";
+      }
+
+      if (value.length === 2) {
+        userInput.value = value.slice(0, 2) + "-";
+      } else if (value.length === 2 || value.length === 4) {
+        userInput.value = value.slice(0, 2) + "-" + value.slice(2, 4) + "-";
+      } else if (value.length === 8) {
+        userInput.value = value.slice(0, 2) + "-" + value.slice(2, 4) + "-" + value.slice(4);
+      }
+
+    })
+  </script>
+</body>
+
+</html>
